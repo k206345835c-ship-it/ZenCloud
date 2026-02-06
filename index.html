@@ -28,15 +28,34 @@
       text-decoration: none;
       border-radius: 5px;
       transition: 0.3s;
+      cursor: pointer;
     }
     a.button:hover {
       background: #005ea3;
+    }
+    #status {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #0078D7;
     }
   </style>
 </head>
 <body>
   <h1>ZenCloud działa! 🎉</h1>
   <p>Twój hosting panel jest online i gotowy do rozbudowy.</p>
-  <a class="button" href="/api/status">Sprawdź status API</a>
+  <button class="button" onclick="checkStatus()">Sprawdź status API</button>
+  <div id="status"></div>
+
+  <script>
+    async function checkStatus() {
+      try {
+        const response = await fetch('/api/status');
+        const data = await response.json();
+        document.getElementById('status').textContent = `Status API: ${data.status}`;
+      } catch (err) {
+        document.getElementById('status').textContent = 'Nie udało się połączyć z API';
+      }
+    }
+  </script>
 </body>
 </html>
