@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZenCloud Dashboard</title>
+<style>
+  /* Reset i podstawowe style */
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+  body { background: #f4f6f8; color: #333; }
+  
+  /* Górny pasek */
+  header {
+    background: #0078D7;
+    color: #fff;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  header h1 { font-size: 24px; }
+  header a { color: #fff; text-decoration: none; font-weight: bold; }
+
+  /* Kontener dashboard */
+  .container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+
+  /* Sekcje / karty */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  }
+
+  .card h2 { color: #0078D7; margin-bottom: 10px; }
+  .card p { font-size: 16px; }
+
+  /* Przycisk */
+  .button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #0078D7;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  .button:hover { background: #005ea3; }
+
+  /* Stopka */
+  footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+    font-size: 14px;
+    color: #777;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>ZenCloud Dashboard</h1>
+  <a href="/">Wyloguj się</a>
+</header>
+
+<div class="container">
+  <h2>Twoje usługi</h2>
+  <div class="cards">
+    <div class="card">
+      <h2>Serwery Minecraft</h2>
+      <p>Twórz i zarządzaj swoimi serwerami Minecraft w łatwy sposób.</p>
+      <a class="button" href="#">Zarządzaj serwerami</a>
+    </div>
+    <div class="card">
+      <h2>Boty Discord</h2>
+      <p>Dodaj swojego bota, monitoruj i kontroluj go w panelu.</p>
+      <a class="button" href="#">Zarządzaj botami</a>
+    </div>
+    <div class="card">
+      <h2>Paczki</h2>
+      <p>Instaluj gotowe paczki i modyfikacje na swoje serwery Minecraft.</p>
+      <a class="button" href="#">Przeglądaj paczki</a>
+    </div>
+    <div class="card">
+      <h2>Oferty i zniżki</h2>
+      <p>Wyświetlaj aktualne promocje i zniżki dla użytkowników.</p>
+      <a class="button" href="#">Zobacz oferty</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  ZenCloud &copy; 2026 | Wszystkie prawa zastrzeżone
+</footer>
+
+</body>
+</html>
