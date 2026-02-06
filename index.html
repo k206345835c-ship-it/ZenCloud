@@ -1,28 +1,42 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<title>Panel Hostingu - Logowanie</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZenCloud</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #f0f2f5;
+      color: #333;
+    }
+    h1 {
+      color: #0078D7;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 18px;
+    }
+    a.button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #0078D7;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+    a.button:hover {
+      background: #005ea3;
+    }
+  </style>
 </head>
 <body>
-<h2>Register</h2>
-<form id="registerForm">
-Username: <input type="text" id="regUsername"><br>
-Email: <input type="email" id="regEmail"><br>
-Password: <input type="password" id="regPassword"><br>
-Confirm Password: <input type="password" id="regConfirm"><br>
-<button type="submit">Register</button>
-</form>
-
-<h2>Login</h2>
-<form id="loginForm">
-Username or Email: <input type="text" id="loginUser"><br>
-Password: <input type="password" id="loginPass"><br>
-<button type="submit">Login</button>
-</form>
-
-<button id="discordLogin">Login with Discord</button>
-<script src="script.js"></script>
+  <h1>ZenCloud działa! 🎉</h1>
+  <p>Twój hosting panel jest online i gotowy do rozbudowy.</p>
+  <a class="button" href="/api/status">Sprawdź status API</a>
 </body>
 </html>
