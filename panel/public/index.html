@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>ZenCloud</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://www.paypal.com/sdk/js?client-id=BAAhttAuEIGfabCNpw-ISQoc2El7PSGW0Q_PVpO3mnLVdf_55Grmp6nGqcwamHsF2mI81KNyZStgutzzWE&components=hosted-buttons&currency=PLN"></script>
+</head>
+<body>
+
+<nav>
+<button onclick="show('shop')">Sklep</button>
+<button onclick="show('wallet')">Portfel</button>
+<button onclick="show('admin')" id="adminBtn" style="display:none">Admin</button>
+</nav>
+
+<div id="shop" class="tab">
+<h2>Sklep</h2>
+<div id="paypal-container-G7VKDFNHNXHU6"></div>
+<script>
+paypal.HostedButtons({hostedButtonId:"G7VKDFNHNXHU6"}).render("#paypal-container-G7VKDFNHNXHU6");
+</script>
+</div>
+
+<div id="wallet" class="tab">
+<h2>Twój portfel</h2>
+<p id="balance">...</p>
+</div>
+
+<div id="admin" class="tab">
+<h2>Admin</h2>
+<input id="uid" placeholder="Discord ID">
+<input id="amount" placeholder="Kwota">
+<button onclick="addMoney()">Dodaj</button>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
