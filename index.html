@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZenCloud</title>
+  <style>
+    body { font-family: Arial; text-align:center; padding:50px; background:#f0f2f5; color:#333;}
+    h1 {color:#0078D7; margin-bottom:20px;}
+    p {font-size:18px;}
+    button {margin-top:20px; padding:10px 20px; background:#0078D7; color:#fff; border:none; border-radius:5px; cursor:pointer;}
+    button:hover {background:#005ea3;}
+    #status {margin-top:20px; font-weight:bold; color:#0078D7;}
+  </style>
+</head>
+<body>
+  <h1>ZenCloud działa! 🎉</h1>
+  <p>Twój hosting panel jest online i gotowy do rozbudowy.</p>
+  <button onclick="checkStatus()">Sprawdź status API</button>
+  <button onclick="loginDiscord()">Zaloguj przez Discord</button>
+  <div id="status"></div>
+
+  <script>
+    async function checkStatus() {
+      try {
+        const response = await fetch('/api/status');
+        const data = await response.json();
+        document.getElementById('status').textContent = `Status API: ${data.status}`;
+      } catch (err) {
+        document.getElementById('status').textContent = 'Nie udało się połączyć z API';
+      }
+    }
+
+    function loginDiscord() {
+      window.location.href = '/api/login';
+    }
+  </script>
+</body>
+</html>
