@@ -1,11 +1,19 @@
 {
-  "name": "zencloud",
+  "name": "zencloud-panel",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "axios": "^1.7.2",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^17.3.1",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.17.3",
+    "passport": "^0.7.0",
+    "passport-discord": "^0.1.4",
+    "uuid": "^9.0.1"
   }
 }
