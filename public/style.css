@@ -1,7 +1,43 @@
 body {
-  background-color: #0a1f44;
-  color: #fff;
-  font-family: Arial, sans-serif;
+    margin: 0;
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+    display: flex;
 }
-button { background-color: #1c3b70; color:white; border:none; padding:5px 10px; cursor:pointer; }
-input { padding:5px; margin:5px 0; width:100%; }
+
+.sidebar {
+    width: 220px;
+    background: #0b1220;
+    padding: 20px;
+    height: 100vh;
+}
+
+.sidebar button {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    background: #1e293b;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.loginBtn {
+    padding: 15px;
+    background: #5865F2;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+}

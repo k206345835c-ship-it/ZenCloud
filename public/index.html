@@ -1,2 +1,54 @@
-<h1>ZenCloud działa!</h1>
-<a href="/dashboard.html">Dashboard</a>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <title>ZenCloud Panel</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>ZenCloud</h2>
+    <button onclick="showTab('home')">Strona główna</button>
+    <button onclick="showTab('shop')">Sklep</button>
+    <button onclick="showTab('credits')">Kredyty</button>
+    <button id="adminTab" onclick="showTab('admin')" style="display:none;">Admin</button>
+</div>
+
+<div class="content">
+
+    <div id="loginBox">
+        <a href="/auth/discord" class="loginBtn">Zaloguj przez Discord</a>
+    </div>
+
+    <div id="panel" style="display:none;">
+        <div class="topbar">
+            <span id="userInfo"></span>
+            <span id="creditInfo"></span>
+        </div>
+
+        <div id="home" class="tab">Witaj w ZenCloud 👋</div>
+
+        <div id="shop" class="tab" style="display:none;">
+            <h2>Sklep serwerów</h2>
+            <p>Tutaj będą serwery PL / EU / Free</p>
+        </div>
+
+        <div id="credits" class="tab" style="display:none;">
+            <h2>Twój portfel</h2>
+            <p>Masz: <b id="creditAmount"></b> kredytów</p>
+        </div>
+
+        <div id="admin" class="tab" style="display:none;">
+            <h2>Panel admina — dodaj kredyty</h2>
+            <input id="uid" placeholder="ID użytkownika">
+            <input id="amount" placeholder="Ile kredytów">
+            <button onclick="addCredits()">Dodaj</button>
+        </div>
+    </div>
+
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
