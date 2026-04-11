@@ -1,70 +1,106 @@
-require('dotenv').config();
+require("dotenv").config();
 
-const express = require('express');
-const session = require('express-session');
-const passport = require('passport');
-const DiscordStrategy = require('passport-discord').Strategy;
-const path = require('path');
+const express = require("express");
+const session = require("express-session");
+const passport = require("passport");
+const DiscordStrategy = require("passport-discord").Strategy;
+const axios = require("axios");
 
 const app = express();
 
 const PORT = process.env.PORT || 3000;
+const BASE_URL = process.env.BASE_URL;
 
-// ====== SESSION ======
+// ===== SESJA =====
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'zencloud_secret',
-    resave: false,
-    saveUninitialized: false
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
 }));
 
-// ====== PASSPORT ======
 app.use(passport.initialize());
 app.use(passport.session());
 
+// ===== PASSPORT =====
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((obj, done) => done(null, obj));
 
 passport.use(new DiscordStrategy({
     clientID: process.env.DISCORD_CLIENT_ID,
     clientSecret: process.env.DISCORD_CLIENT_SECRET,
-    callbackURL: process.env.DISCORD_CALLBACK_URL,
-    scope: ['identify', 'email']
-}, (accessToken, refreshToken, profile, done) => {
-    process.nextTick(() => done(null, profile));
-}));
+    callbackURL: `${BASE_URL}/auth/discord/callback`,
+    scope: ["identify", "email", "guilds.join"],
+  },
+  (accessToken, refreshToken, profile, done) => {
+    profile.accessToken = accessToken;
+    return done(null, profile);
+  }
+));
 
-// ====== STATIC FILES ======
-app.use(express.static(path.join(__dirname, 'public')));
-
-// ====== AUTH ROUTES ======
-app.get('/auth/discord', passport.authenticate('discord'));
-
-app.get('/auth/discord/callback',
-    passport.authenticate('discord', { failureRedirect: '/' }),
-    (req, res) => {
-        res.redirect('/');
+// ===== FUNKCJA DODANIA NA SERWER =====
+async function joinGuild(userId, accessToken) {
+  await axios.put(
+    `https://discord.com/api/guilds/${process.env.DISCORD_GUILD_ID}/members/${userId}`,
+    { access_token: accessToken },
+    {
+      headers: {
+        Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
+        "Content-Type": "application/json",
+      },
     }
+  );
+}
+
+// ===== STRONA GŁÓWNA =====
+app.get("/", (req, res) => {
+  res.send(`
+    <h1>ZenCloud</h1>
+    <a href="/auth/discord">Zaloguj przez Discord</a>
+  `);
+});
+
+// ===== LOGOWANIE DISCORD =====
+app.get("/auth/discord",
+  passport.authenticate("discord")
 );
 
-app.get('/logout', (req, res) => {
-    req.logout(() => {
-        res.redirect('/');
-    });
+// ===== CALLBACK =====
+app.get("/auth/discord/callback",
+  passport.authenticate("discord", { failureRedirect: "/" }),
+  async (req, res) => {
+    try {
+      await joinGuild(req.user.id, req.user.accessToken);
+    } catch (e) {
+      console.log("Nie udało się dodać do serwera:", e.message);
+    }
+    res.redirect("/panel");
+  }
+);
+
+// ===== PANEL =====
+app.get("/panel", (req, res) => {
+  if (!req.isAuthenticated()) return res.redirect("/");
+
+  res.send(`
+    <h2>Panel użytkownika</h2>
+    <p>Witaj ${req.user.username}#${req.user.discriminator}</p>
+    <ul>
+      <li>💰 Portfel</li>
+      <li>🛒 Sklep</li>
+      <li>⚙️ Konto</li>
+    </ul>
+    <a href="/logout">Wyloguj</a>
+  `);
 });
 
-// ====== API USER ======
-app.get('/api/user', (req, res) => {
-    if (!req.user) return res.json(null);
-
-    res.json({
-        username: req.user.username,
-        avatar: `https://cdn.discordapp.com/avatars/${req.user.id}/${req.user.avatar}.png`,
-        id: req.user.id
-    });
+// ===== WYLOGUJ =====
+app.get("/logout", (req, res) => {
+  req.logout(() => {
+    res.redirect("/");
+  });
 });
 
-// ====== START SERVER ======
+// ===== START =====
 app.listen(PORT, () => {
-    const url = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
-    console.log("ZenCloud działa na " + url);
+  console.log(`ZenCloud działa na ${BASE_URL}`);
 });
